@@ -11,7 +11,6 @@ const options ={
 
 export class DataService {
 
-
   constructor(private http:HttpClient) {
    }
 
@@ -69,6 +68,7 @@ export class DataService {
   return this.http.post('http://localhost:3000/withdraw',data,this.getOptions())
 
   }
+  
   //transaction
   getTransaction(acno: any) {
     const data = {

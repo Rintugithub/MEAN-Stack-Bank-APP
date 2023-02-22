@@ -1,6 +1,6 @@
 //import jsonwebtoken
 const jwt = require("jsonwebtoken");
-//import db 
+//import db
 const db = require('./db')
 //database
 userDetials  = {
@@ -8,10 +8,10 @@ userDetials  = {
 1001: { acno: 1001, username: "Laisha", password: 1001, balance: 6000, transaction: [] },
 1002: { acno: 1002, username: "Vyom", password: 1002, balance: 4000, transaction: [] }
 
-  }                            
+  }
 
 //Register
-  
+
   const register =  (acno , password ,username )=> {
     //asynchronus function call
    return db.User.findOne({acno})
@@ -39,8 +39,8 @@ userDetials  = {
       }
     }
    })
-  
-    
+
+
     }
     //login
    const login = (acno , pswd )=> {
@@ -54,14 +54,14 @@ userDetials  = {
     if(user){
       currentUsername = user.username
       currentAcno = acno
-      
+
       //token generation using jwt
       const token = jwt.sign({
-        currentAcno:acno 
+        currentAcno:acno
       },"supersecretkey12345")
       return  {
           statusCode:200,
-  
+
           status:true,
           message:'Login successfully',
           currentUsername,
@@ -78,7 +78,7 @@ userDetials  = {
       }
     }
   })
-       
+
       }
       //deposit
 const deposit =(acno , pswd , amt )=> {
@@ -102,7 +102,7 @@ const deposit =(acno , pswd , amt )=> {
           statusCode:200,
           status:true,
           message:`${amount} credited. New Balance is ${user.balance}`
-        } 
+        }
 
     }
     else {
@@ -110,11 +110,11 @@ const deposit =(acno , pswd , amt )=> {
           statusCode:401,
           status:false,
           message:'incorrect password or Account number'
-        } 
+        }
     }
 
   })
-    
+
   }
   //withdraw
    const withdraw = (acno, pswd, amt) =>{
@@ -134,13 +134,13 @@ const deposit =(acno , pswd , amt )=> {
           amount: amount
         })
         user.save()
-  
+
         return  {
             statusCode:200,
             status:true,
             message:`${amount} debited. New Balance is ${user.balance}`
-          } 
-  
+          }
+
 
       }
       else{
@@ -150,30 +150,30 @@ const deposit =(acno , pswd , amt )=> {
           message:'insufficent balance'
         }
       }
-    
+
     }
     else {
       return {
           statusCode:401,
           status:false,
           message:'incorrect password or Account number'
-        } 
+        }
     }
 
   })
-    
+
   }
   //transaction
    const getTransaction = (acno)=> {
     return db.User.findOne({acno})
-    .then(user=>{ 
+    .then(user=>{
       if(user){
       return  {
       statusCode:200,
 
       status:true,
       transaction:user['transaction']
-    } 
+    }
 
   }
   else{
@@ -181,10 +181,10 @@ const deposit =(acno , pswd , amt )=> {
       statusCode:401,
       status:false,
       message:'incorrect  Account number'
-    } 
+    }
   }
     })
-   
+
   }
   //onDelete
   const onDelete = (acno)=>{
@@ -193,19 +193,19 @@ const deposit =(acno , pswd , amt )=> {
       if(result){
         return  {
           statusCode:200,
-    
+
           status:true,
           message:'Deleted Successfully'
-        } 
-    
-      
+        }
+
+
       }
       else{
         return {
           statusCode:401,
           status:false,
           message:'incorrect  Account number'
-        } 
+        }
       }
 
     })

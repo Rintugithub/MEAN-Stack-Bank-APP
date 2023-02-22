@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
         alert(result.error.message)
         this.router.navigateByUrl("")
        })
-
+     
 
     }else{
       alert('Invalid Form')

@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const cors = require('cors')
 const dataService = require('./service/data.sevice');
 //2.create a server app
-const app = express(); 
+const app = express();
 //to parse JSON
 app.use(express.json())
 //to use cors to share data with other
@@ -28,7 +28,7 @@ const jwtMiddleware = (req,res,next)=>{
         })
     }
 }
-  
+
 //3.HTTP request resolve
 
 //Bank APP REQUEST RESOLVING
@@ -37,7 +37,7 @@ app.post('/register',(req,res)=>{
 dataService.register(req.body.acno,req.body.password,req.body.username)
 .then(result=>{
     res.status(result.statusCode).json(result)
-  
+
 })
 })
 //login api
@@ -45,31 +45,31 @@ app.post('/login',(req,res)=>{
  dataService.login(req.body.acno,req.body.pswd)
  .then(result=>{
     res.status(result.statusCode).json(result)
-  
-      
+
+
     })    })
     //deposit api
 app.post('/deposit',jwtMiddleware,(req,res)=>{
   dataService.deposit(req.body.acno,req.body.pswd,req.body.amt)
    .then(result=>{
         res.status(result.statusCode).json(result)
-      
+
     })    })
     //withdraw api
-     
+
 app.post('/withdraw',jwtMiddleware,(req,res)=>{
  dataService.withdraw(req.body.acno,req.body.pswd,req.body.amt)
     .then(result=>{
         res.status(result.statusCode).json(result)
-      
+
     })     })
      //transaction api
-     
+
 app.post('/transaction',jwtMiddleware,(req,res)=>{
   try  { const result = dataService.getTransaction(req.body.acno)
     .then(result=>{
         res.status(result.statusCode).json(result)
-      
+
     }) }
     catch{
         res.status(422).json({
@@ -84,15 +84,16 @@ app.post('/transaction',jwtMiddleware,(req,res)=>{
         dataService.onDelete(req.params.acno)
         .then(result=>{
             res.status(result.statusCode).json(result)
-          
+
         })
 
     })
 
+
 //4.set up port number
 app.listen(3000,()=>{
     console.log('server started at port 3000');
-}) 
+})
 
 
 

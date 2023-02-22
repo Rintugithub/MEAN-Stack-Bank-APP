@@ -34,7 +34,7 @@ lDate:any
     if(localStorage.getItem('currentUsername')){
       this.user = JSON.parse(localStorage.getItem('currentUsername') || '')
 
-    } 
+    }
     this.lDate  = new Date()
   }
 
@@ -123,7 +123,7 @@ this.logout()
       alert(result.error.message)
     }
   )
-
+            
 }
 
 }
